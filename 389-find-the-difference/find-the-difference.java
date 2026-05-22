@@ -1,15 +1,13 @@
 class Solution {
     public char findTheDifference(String s, String t) {
-        int result = 0;
-
-        for (char c : s.toCharArray()) {
-            result ^= c;
+        char r = 0;
+        for(char e : s.toCharArray() ) {
+            r= (char)(r^e);
         }
-
-        for (char c : t.toCharArray()) {
-            result ^= c;
+        for(char e : t.toCharArray() ) {
+             r= (char)(r^e);
         }
-
-        return (char) result;
+        return r;
+        
     }
 }
