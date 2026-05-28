@@ -1,39 +1,54 @@
 
 
  class Solution {
-    boolean isAnagram(String First , String Second){
-        if(First.length() != Second.length() )
-            return false;
+    // boolean isAnagram(String First , String Second){
+    //     if(First.length() != Second.length() )
+    //         return false;
         
-        char[]x = First.toCharArray();
-          char[]y = Second.toCharArray();
-          Arrays.sort(x);
-          Arrays.sort(y);
-          return Arrays.equals(x,y);
+    //     char[]x = First.toCharArray();
+    //       char[]y = Second.toCharArray();
+    //       Arrays.sort(x);
+    //       Arrays.sort(y);
+    //       return Arrays.equals(x,y);
           //it anagram function 
 
         
-    }
+    
 public List<List<String>> groupAnagrams(String[] strs) {
-        List<List<String>> biglist = new ArrayList<>();
-        for(String word: strs){
-            boolean added = false;
-            //  flag check it is already in list 
-            for(List<String> SmallList: biglist){
-                if(isAnagram(SmallList.get(0), word)){
-                    SmallList.add(word);
-                    added = true;
-                     break;
+        // List<List<String>> biglist = new ArrayList<>();
+        // for(String word: strs){
+        //     boolean added = false;
+        //     //  flag check it is already in list 
+        //     for(List<String> SmallList: biglist){
+        //         if(isAnagram(SmallList.get(0), word)){
+        //             SmallList.add(word);
+        //             added = true;
+        //              break;
 
-                }
+        //         }
+        //     }
+        //     if(! added){
+        //         List<String> newList = new ArrayList<>();
+        //         newList.add(word);
+        //         biglist.add(newList);
+        //     }
+        // }
+        //  return biglist;
+        // ========================>>>>>>>>>>>>>>>>>>>>>>>
+        Map<String,List<String>> map = new HashMap<>();
+        for(String word : strs){
+            int CountArr[] = new int[26];
+            for(char c : word.toCharArray()){
+                CountArr[c-'a']++;
             }
-            if(! added){
-                List<String> newList = new ArrayList<>();
-                newList.add(word);
-                biglist.add(newList);
+            StringBuilder sb = new StringBuilder();
+            for(int k  :  CountArr){
+                sb.append(k).append('#'); // 1#1#1
             }
+            String key = sb.toString();
+            map.computeIfAbsent(key ,k->new ArrayList<>()).add(word);
         }
-         return biglist;
+        return new ArrayList<>(map.values());
     }
 }
 
