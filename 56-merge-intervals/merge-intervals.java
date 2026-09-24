@@ -1,17 +1,24 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
-        List<int []> list = new ArrayList<>();
-        // Steps:1 sort the interval 
-        Arrays.sort(intervals , (a,b) -> a[0]-b[0]);
-        for(int interval[] : intervals){
-            if(list.isEmpty() || list.get(list.size() -1)[1] < interval[0]){
-                list.add(interval);
-                
-            }else{
-                list.get(list.size() -1)[1] = Math.max(  list.get(list.size() -1)[1] , interval[1]);
+        if(intervals.length <= 1)
+        return intervals;
+        // Array sort first 
+        Arrays.sort(intervals,Comparator.comparingInt(i -> i[0]));
+        List<int[]> result = new ArrayList<>();
+        int newInterval[] =intervals[0];
+        result.add(newInterval);
+        for(int [] interval :intervals){
+            if(interval[0] <= newInterval[1]){
+                // overlapping 
+                // merge into 
+                newInterval[1]= Math.max(interval[1],newInterval[1]);
+            }
+            else{
+                // Disjoint interval
+                newInterval = interval;
+                result.add(newInterval);
             }
         }
-
-        return list.toArray(new int [list.size()] []);
+        return result.toArray(new int[result.size()] []);
     }
 }
